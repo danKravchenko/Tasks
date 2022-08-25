@@ -1,18 +1,39 @@
-function longWord(word) {
-    if (word.length > 10) {
-        let firstLetters = word.split("").splice(0, 1)
-        let lastLetters = word.split("").splice(-1, 1)
-        let expectedResult = firstLetters + (word.length - 2) + lastLetters
-        return expectedResult
+function capsLock(str) {
+    let data = str.split(" ")
+    complete = []
+    for (i = 0; i < data.length; i++) {
+        let word = data[i];
+        if (checkWord(word)) {
+            for (l = 0; l < word.length; l++) {
+                let letter = word.charAt(l)
+                if (letter.toUpperCase() === letter) {
+                    complete += letter.toLowerCase()
+                } else {
+                    complete += letter.toUpperCase()
+                }
+            }
+            complete += ' '
+        } else {
+            complete += word + ' '
+        }
     }
-
-    else {
-        return word
-    }
+    str = complete
+    return str
 }
 
-console.log("Result of task: " + longWord("localization"))
-console.log("Result of task: " + longWord("internationalization"))
-console.log("Result of task: " + longWord("word"))
-console.log("Result of task: " + longWord(""))
-console.log("Result of task: " + longWord("1"))
+function checkWord(word) {
+    let restOfWord = word.slice(1, word.length);
+    let wrongWord = true;
+    for (let l = 0; l < restOfWord.length; l++) {
+        if (restOfWord.charAt(l).toUpperCase() !== restOfWord.charAt(l)) {
+            wrongWord = false;
+            break;
+        }
+    }
+    return wrongWord;
+}
+
+console.log("Result of task: " + capsLock("cAPS"))
+console.log("Result of task: " + capsLock("Lock"))
+console.log("Result of task: " + capsLock("wHY DO wE NEED cAPS lOCK?"))
+console.log("Result of task: " + capsLock("FuNkY iS nOt CaPs!"))
